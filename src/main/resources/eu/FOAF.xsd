@@ -21,9 +21,9 @@
 	<import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 		schemaLocation="RDF.xsd" />
 	<import namespace="http://www.europeana.eu/schemas/edm/"
-		schemaLocation="EDM-COMMON-MAIN.xsd" />
-	<import namespace="http://www.europeana.eu/schemas/edm/"
 		schemaLocation="CONTEXTS.xsd" />
+	<import namespace="http://www.europeana.eu/schemas/edm/"
+		schemaLocation="EDM-COMMON-MAIN.xsd" />
 	<import namespace="http://purl.org/dc/elements/1.1/"
 		schemaLocation="DC.xsd" />
 	<import namespace="http://www.w3.org/2004/02/skos/core#"
@@ -60,7 +60,6 @@
 						<element ref="edm:geographicLevel" maxOccurs="1"
 							minOccurs="1" />
 						<element ref="edm:country" maxOccurs="1" minOccurs="1" />
-						<element ref="edm:europeanaRole" maxOccurs="unbounded" minOccurs="1" />
 						<element ref="foaf:homepage" maxOccurs="1" minOccurs="0" />
 					</sequence>
 				</extension>

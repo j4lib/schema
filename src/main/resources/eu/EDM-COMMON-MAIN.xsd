@@ -265,13 +265,6 @@
         </restriction>
     </simpleType>
 
-    <simpleType name="ColorSpaceType">
-        <restriction base="string">
-            <enumeration value="sRGB"/>
-            <enumeration value="grayscale"/>
-        </restriction>
-    </simpleType>
-
     <element name="acronym" type="rdf:LiteralType">
         <annotation>
             <documentation> Acronym for an Organization
@@ -355,13 +348,6 @@
     <element name="end" type="rdf:LiteralType">
         <annotation>
             <documentation>The ending of a temporal period</documentation>
-        </annotation>
-    </element>
-    
-    <element name="europeanaRole" type="rdf:ResourceOrLiteralType">
-        <annotation>
-            <documentation> Role of an Organization according to its relationship to Europeana
-                Example: Content Provider/Data Aggregator </documentation>
         </annotation>
     </element>
     
@@ -729,35 +715,5 @@
             <spatialResolution>300</spatialResolution>
             </documentation>
         </annotation>
-    </element>
-    <element name="hasColorSpace" type="edm:ColorSpaceType">
-        <annotation>
-            <documentation>The color space of an image resource i.e. 'grayscale' or 'sRGB'. Example:
-            <hasColorSpace>grayscale</hasColorSpace>
-            </documentation>
-        </annotation>
-    </element>
-    <element name="componentColor" type="rdf:HexBinaryType">
-        <annotation>
-            <documentation>A significant color present in an image. The colors must be taken from the CSS3 standard color palette
-                and are expressed as a hexadecimal binary value. Example:
-                &lt;spatialResolution&gt;FF0000&lt;/spatialResolution&gt;
-            </documentation>
-        </annotation>
-
-    </element>
-    <element name="intermediateProvider" type="rdf:ResourceOrLiteralType">
-
-        <annotation>
-            <documentation>The name or identifier of the intermediate organization that selects, collates, or curates data
-                from a Data Provider that is then aggregated by a Provider from which Europeana harvests.
-                The Intermedatiate Provider must be distinct from both the Data Provider and the Provider
-                in the data supply chain.
-                Example:
-                &lt;edm:intermediateProvider&lt; Erfgoedplus.be&lt;/edm:intermediateProvider&lt;
-                &lt;edm:intermediateProvider rdf:resource=”www.erfgoedplus.be/”/&lt;
-            </documentation>
-        </annotation>
-
     </element>
 </schema>

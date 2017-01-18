@@ -28,10 +28,7 @@
 	<import namespace="http://www.w3.org/2004/02/skos/core#" schemaLocation="SKOS.xsd" />
 	<import namespace="http://www.w3.org/2002/07/owl#" schemaLocation="OWL.xsd" />
 	<import namespace="http://www.openarchives.org/ore/terms/" schemaLocation="ORE.xsd" />
-	<import namespace="http://creativecommons.org/ns#" schemaLocation="CC.xsd"/>
-	<import namespace="http://rdfs.org/sioc/services#" schemaLocation="SVCS.xsd"/>
 
-	<import namespace="http://usefulinc.com/ns/doap#" schemaLocation="DOAP.xsd"/>
 	<include schemaLocation="EDM-COMMON-MAIN.xsd" />
 	<include schemaLocation="CONTEXTS.xsd"/>	
 	
@@ -49,7 +46,6 @@
 				<sch:ns prefix="rdf" uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#" />
 				<sch:ns prefix="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#" />
 				<sch:ns prefix="skos" uri="http://www.w3.org/2004/02/skos/core#" />
-				<sch:ns prefix="svcs" uri="http://rdfs.org/sioc/services#"/>
 			</appinfo>
 		</annotation>
 		<sequence minOccurs="0" maxOccurs="unbounded">
@@ -61,8 +57,6 @@
 				<element name="TimeSpan" type="edm:TimeSpanType" />
 				<element ref="skos:Concept" />
 				<element ref="ore:Aggregation" />
-				<element ref="cc:License" />
-				<element ref="svcs:Service"/>
 			</choice>
 		</sequence>
 	</complexType>
