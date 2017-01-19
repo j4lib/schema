@@ -138,12 +138,6 @@
         </restriction>
     </simpleType>
 
-    <simpleType name="UGCType">
-        <restriction base="string">
-            <enumeration value="true"/>
-        </restriction>
-    </simpleType>
-
     <simpleType name="CountryCodes">
         <restriction base="string">
             <enumeration value="Albania"/>
@@ -669,50 +663,10 @@
         </annotation>
     </element>
 
-    <element name="ugc" type="edm:UGCType">
-        <annotation>
-            <documentation>This element is used to identify user generated content (also called user
-                created content). It should be applied to all digitised or born digital content
-                contributed by the general public and collected by Europeana through a crowdsourcing
-                initiative or project. The only value this element can take is "TRUE" to indicate
-                that the object is user generated. It should be entered in uppercase. If the content
-                is not user generated then the element should not be provided.
-                Example:&lt;edm:UGC&gt;TRUE&lt;edm:UGC&gt; </documentation>
-        </annotation>
-    </element>
-
-    <element name="userTag" type="rdf:LiteralType">
-        <annotation>
-            <documentation>This is a tag created by a user through the Europeana interface.
-            </documentation>
-        </annotation>
-    </element>
-
     <element name="year" type="rdf:LiteralType">
         <annotation>
             <documentation>A point of time associated with an event in the life of the original
                 analog or born digital object. Example:&lt;edm:year &gt;1523&lt;/edm:year&gt;
-            </documentation>
-        </annotation>
-    </element>
-
-    <element name="europeanaProxy" type="boolean">
-        <annotation>
-            <documentation>A flag indicating that the specific Proxy can be used as a europeanaProxy
-            </documentation>
-        </annotation>
-    </element>
-    <element name="codecName" type="string">
-        <annotation>
-            <documentation>The name of a device or computer program capable of encoding or decoding a digital data stream or signal (i.e. coder-decoder). Example:
-            <codecName>mp4v</codecName>
-            </documentation>
-        </annotation>
-    </element>
-    <element name="spatialResolution" type="rdf:NonNegativeIntegerType">
-        <annotation>
-            <documentation>The spatial resolution of a media resource expressed in DPIs. Example:
-            <spatialResolution>300</spatialResolution>
             </documentation>
         </annotation>
     </element>
