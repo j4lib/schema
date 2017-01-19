@@ -1,0 +1,1677 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for namespace http://rdvocab.info/ElementsGr2/</title>
+      <link rel="stylesheet" href="docHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        var propertiesBoxes= new Array('properties_RDAGR2.xsd', 
+				'properties_biographicalInformation', 
+				'properties_dateOfBirth', 
+				'properties_dateOfDeath', 
+				'properties_dateOfEstablishment', 
+				'properties_dateOfTermination', 
+				'properties_gender', 
+				'properties_placeOfBirth', 
+				'properties_placeOfDeath', 
+				'properties_professionOrOccupation');
+var usedByBoxes= new Array('usedBy_biographicalInformation', 
+				'usedBy_dateOfBirth', 
+				'usedBy_dateOfDeath', 
+				'usedBy_dateOfEstablishment', 
+				'usedBy_dateOfTermination', 
+				'usedBy_gender', 
+				'usedBy_placeOfBirth', 
+				'usedBy_placeOfDeath', 
+				'usedBy_professionOrOccupation');
+var sourceBoxes= new Array('source_biographicalInformation', 
+				'source_dateOfBirth', 
+				'source_dateOfDeath', 
+				'source_dateOfEstablishment', 
+				'source_dateOfTermination', 
+				'source_gender', 
+				'source_placeOfBirth', 
+				'source_placeOfDeath', 
+				'source_professionOrOccupation');
+var diagramBoxes= new Array('diagram_biographicalInformation', 
+				'diagram_dateOfBirth', 
+				'diagram_dateOfDeath', 
+				'diagram_dateOfEstablishment', 
+				'diagram_dateOfTermination', 
+				'diagram_gender', 
+				'diagram_placeOfBirth', 
+				'diagram_placeOfDeath', 
+				'diagram_professionOrOccupation');
+var annotationBoxes= new Array('annotations_RDAGR2.xsd');
+var attributesBoxes= new Array('attributes_biographicalInformation', 
+				'attributes_dateOfBirth', 
+				'attributes_dateOfDeath', 
+				'attributes_dateOfEstablishment', 
+				'attributes_dateOfTermination', 
+				'attributes_gender', 
+				'attributes_placeOfBirth', 
+				'attributes_placeOfDeath', 
+				'attributes_professionOrOccupation');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                    //--></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cornerTopLeft"></td>
+               <td class="rt_lineTop"></td>
+               <td class="rt_cornerTopRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_lineLeft"></td>
+               <td class="rt_content">
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, annotationBoxes);" class="control" /></span><span class="globalControlName">Annotations</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, attributesBoxes);" class="control" /></span><span class="globalControlName">Attributes </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, diagramBoxes);" class="control" /></span><span class="globalControlName">Diagrams</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, propertiesBoxes);" class="control" /></span><span class="globalControlName">Properties </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control" /></span><span class="globalControlName">Source</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close" /></span></div>
+               </td>
+               <td class="rt_lineRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_cornerBottomLeft"></td>
+               <td class="rt_lineBottom"></td>
+               <td class="rt_cornerBottomRight"></td>
+            </tr>
+         </table>
+      </div><a id="RDAGR2.xsd"></a><div class="componentTitle">Imported schema <span class="qname">RDAGR2.xsd</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://rdvocab.info/ElementsGr2/</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_RDAGR2.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_RDAGR2.xsd');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_RDAGR2.xsd" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">Europeana representation of the RDA Group 2 Element Vocabulary</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_RDAGR2.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_RDAGR2.xsd');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_RDAGR2.xsd" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">attribute form default</td>
+                                    <td><b>unqualified</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">element form default</td>
+                                    <td><b>unqualified</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="biographicalInformation"></a><div class="componentTitle">Element <span class="qname">biographicalInformation</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://rdvocab.info/ElementsGr2/</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_biographicalInformation" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_biographicalInformation');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_biographicalInformation" style="display:block"><img alt="Diagram" border="0" src="img/RDAGR2_xsd_Element_biographicalInformation.jpeg" usemap="#RDAGR2_xsd_Element_biographicalInformation" /><map name="RDAGR2_xsd_Element_biographicalInformation" id="RDAGR2_xsd_Element_biographicalInformation">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="221,157,320,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#LiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#LiteralType" coords="196,3,329,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#LiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:LiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_biographicalInformation" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_biographicalInformation');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_biographicalInformation" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_biographicalInformation" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_biographicalInformation');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_biographicalInformation" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_biographicalInformation" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_biographicalInformation');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_biographicalInformation" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_biographicalInformation" type="image" src="img/btM.gif" value="-" onclick="switchState('source_biographicalInformation');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_biographicalInformation" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"biographicalInformation"</span><span class="tAN"> type=</span><span class="tAV">"rdf:LiteralType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="dateOfBirth"></a><div class="componentTitle">Element <span class="qname">dateOfBirth</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://rdvocab.info/ElementsGr2/</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_dateOfBirth" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_dateOfBirth');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_dateOfBirth" style="display:block"><img alt="Diagram" border="0" src="img/RDAGR2_xsd_Element_dateOfBirth.jpeg" usemap="#RDAGR2_xsd_Element_dateOfBirth" /><map name="RDAGR2_xsd_Element_dateOfBirth" id="RDAGR2_xsd_Element_dateOfBirth">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="152,157,251,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#LiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#LiteralType" coords="127,3,260,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#LiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:LiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_dateOfBirth" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_dateOfBirth');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_dateOfBirth" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_dateOfBirth" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_dateOfBirth');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_dateOfBirth" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_dateOfBirth" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_dateOfBirth');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_dateOfBirth" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_dateOfBirth" type="image" src="img/btM.gif" value="-" onclick="switchState('source_dateOfBirth');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_dateOfBirth" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"dateOfBirth"</span><span class="tAN"> type=</span><span class="tAV">"rdf:LiteralType"</span><span class="tEl">&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="dateOfDeath"></a><div class="componentTitle">Element <span class="qname">dateOfDeath</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://rdvocab.info/ElementsGr2/</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_dateOfDeath" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_dateOfDeath');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_dateOfDeath" style="display:block"><img alt="Diagram" border="0" src="img/RDAGR2_xsd_Element_dateOfDeath.jpeg" usemap="#RDAGR2_xsd_Element_dateOfDeath" /><map name="RDAGR2_xsd_Element_dateOfDeath" id="RDAGR2_xsd_Element_dateOfDeath">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="158,157,257,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#LiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#LiteralType" coords="133,3,266,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#LiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:LiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_dateOfDeath" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_dateOfDeath');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_dateOfDeath" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_dateOfDeath" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_dateOfDeath');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_dateOfDeath" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_dateOfDeath" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_dateOfDeath');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_dateOfDeath" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_dateOfDeath" type="image" src="img/btM.gif" value="-" onclick="switchState('source_dateOfDeath');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_dateOfDeath" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"dateOfDeath"</span><span class="tAN"> type=</span><span class="tAV">"rdf:LiteralType"</span><span class="tEl">&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="dateOfEstablishment"></a><div class="componentTitle">Element <span class="qname">dateOfEstablishment</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://rdvocab.info/ElementsGr2/</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_dateOfEstablishment" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_dateOfEstablishment');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_dateOfEstablishment" style="display:block"><img alt="Diagram" border="0" src="img/RDAGR2_xsd_Element_dateOfEstablishment.jpeg" usemap="#RDAGR2_xsd_Element_dateOfEstablishment" /><map name="RDAGR2_xsd_Element_dateOfEstablishment" id="RDAGR2_xsd_Element_dateOfEstablishment">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="206,157,305,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#LiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#LiteralType" coords="181,3,314,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#LiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:LiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_dateOfEstablishment" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_dateOfEstablishment');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_dateOfEstablishment" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_dateOfEstablishment" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_dateOfEstablishment');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_dateOfEstablishment" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_dateOfEstablishment" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_dateOfEstablishment');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_dateOfEstablishment" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_dateOfEstablishment" type="image" src="img/btM.gif" value="-" onclick="switchState('source_dateOfEstablishment');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_dateOfEstablishment" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"dateOfEstablishment"</span><span class="tAN"> type=</span><span class="tAV">"rdf:LiteralType"</span><span class="tEl">&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="dateOfTermination"></a><div class="componentTitle">Element <span class="qname">dateOfTermination</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://rdvocab.info/ElementsGr2/</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_dateOfTermination" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_dateOfTermination');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_dateOfTermination" style="display:block"><img alt="Diagram" border="0" src="img/RDAGR2_xsd_Element_dateOfTermination.jpeg" usemap="#RDAGR2_xsd_Element_dateOfTermination" /><map name="RDAGR2_xsd_Element_dateOfTermination" id="RDAGR2_xsd_Element_dateOfTermination">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="193,157,292,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#LiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#LiteralType" coords="168,3,301,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#LiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:LiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_dateOfTermination" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_dateOfTermination');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_dateOfTermination" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_dateOfTermination" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_dateOfTermination');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_dateOfTermination" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_dateOfTermination" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_dateOfTermination');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_dateOfTermination" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_dateOfTermination" type="image" src="img/btM.gif" value="-" onclick="switchState('source_dateOfTermination');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_dateOfTermination" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"dateOfTermination"</span><span class="tAN"> type=</span><span class="tAV">"rdf:LiteralType"</span><span class="tEl">&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="gender"></a><div class="componentTitle">Element <span class="qname">gender</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://rdvocab.info/ElementsGr2/</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_gender" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_gender');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_gender" style="display:block"><img alt="Diagram" border="0" src="img/RDAGR2_xsd_Element_gender.jpeg" usemap="#RDAGR2_xsd_Element_gender" /><map name="RDAGR2_xsd_Element_gender" id="RDAGR2_xsd_Element_gender">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="127,157,226,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#LiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#LiteralType" coords="102,3,235,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#LiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:LiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_gender" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_gender');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_gender" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_gender" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_gender');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_gender" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_gender" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_gender');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_gender" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_gender" type="image" src="img/btM.gif" value="-" onclick="switchState('source_gender');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_gender" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"gender"</span><span class="tAN"> type=</span><span class="tAV">"rdf:LiteralType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="placeOfBirth"></a><div class="componentTitle">Element <span class="qname">placeOfBirth</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://rdvocab.info/ElementsGr2/</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_placeOfBirth" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_placeOfBirth');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_placeOfBirth" style="display:block"><img alt="Diagram" border="0" src="img/RDAGR2_xsd_Element_placeOfBirth.jpeg" usemap="#RDAGR2_xsd_Element_placeOfBirth" /><map name="RDAGR2_xsd_Element_placeOfBirth" id="RDAGR2_xsd_Element_placeOfBirth">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="157,157,256,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#resource" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#resource" coords="157,247,279,271" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#ResourceOrLiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#ResourceOrLiteralType" coords="132,3,332,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceOrLiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceOrLiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_placeOfBirth" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_placeOfBirth');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_placeOfBirth" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_placeOfBirth" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_placeOfBirth');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_placeOfBirth" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_placeOfBirth" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_placeOfBirth');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_placeOfBirth" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:resource</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_placeOfBirth" type="image" src="img/btM.gif" value="-" onclick="switchState('source_placeOfBirth');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_placeOfBirth" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"placeOfBirth"</span><span class="tAN"> type=</span><span class="tAV">"rdf:ResourceOrLiteralType"</span><span class="tEl">&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="placeOfDeath"></a><div class="componentTitle">Element <span class="qname">placeOfDeath</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://rdvocab.info/ElementsGr2/</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_placeOfDeath" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_placeOfDeath');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_placeOfDeath" style="display:block"><img alt="Diagram" border="0" src="img/RDAGR2_xsd_Element_placeOfDeath.jpeg" usemap="#RDAGR2_xsd_Element_placeOfDeath" /><map name="RDAGR2_xsd_Element_placeOfDeath" id="RDAGR2_xsd_Element_placeOfDeath">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="163,157,262,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#resource" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#resource" coords="163,247,285,271" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#ResourceOrLiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#ResourceOrLiteralType" coords="138,3,338,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceOrLiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceOrLiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_placeOfDeath" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_placeOfDeath');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_placeOfDeath" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_placeOfDeath" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_placeOfDeath');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_placeOfDeath" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_placeOfDeath" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_placeOfDeath');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_placeOfDeath" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:resource</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_placeOfDeath" type="image" src="img/btM.gif" value="-" onclick="switchState('source_placeOfDeath');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_placeOfDeath" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"placeOfDeath"</span><span class="tAN"> type=</span><span class="tAV">"rdf:ResourceOrLiteralType"</span><span class="tEl">&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="professionOrOccupation"></a><div class="componentTitle">Element <span class="qname">professionOrOccupation</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://rdvocab.info/ElementsGr2/</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_professionOrOccupation" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_professionOrOccupation');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_professionOrOccupation" style="display:block"><img alt="Diagram" border="0" src="img/RDAGR2_xsd_Element_professionOrOccupation.jpeg" usemap="#RDAGR2_xsd_Element_professionOrOccupation" /><map name="RDAGR2_xsd_Element_professionOrOccupation" id="RDAGR2_xsd_Element_professionOrOccupation">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="225,157,324,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#resource" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#resource" coords="225,247,347,271" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#ResourceOrLiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#ResourceOrLiteralType" coords="200,3,400,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceOrLiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceOrLiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_professionOrOccupation" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_professionOrOccupation');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_professionOrOccupation" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_professionOrOccupation" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_professionOrOccupation');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_professionOrOccupation" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_professionOrOccupation" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_professionOrOccupation');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_professionOrOccupation" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:resource</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_professionOrOccupation" type="image" src="img/btM.gif" value="-" onclick="switchState('source_professionOrOccupation');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_professionOrOccupation" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"professionOrOccupation"</span><span class="tAN"> type=</span><span class="tAV">"rdf:ResourceOrLiteralType"</span><span class="tEl">&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body>
+</html>

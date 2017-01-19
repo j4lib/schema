@@ -1,0 +1,2243 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for namespace http://www.w3.org/2004/02/skos/core#</title>
+      <link rel="stylesheet" href="docHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        var propertiesBoxes= new Array('properties_SKOS.xsd', 
+				'properties_prefLabel', 
+				'properties_altLabel', 
+				'properties_note', 
+				'properties_Concept', 
+				'properties_broader', 
+				'properties_narrower', 
+				'properties_related', 
+				'properties_broadMatch', 
+				'properties_narrowMatch', 
+				'properties_relatedMatch', 
+				'properties_exactMatch', 
+				'properties_closeMatch', 
+				'properties_notation', 
+				'properties_inScheme');
+var usedByBoxes= new Array('usedBy_prefLabel', 
+				'usedBy_altLabel', 
+				'usedBy_note', 
+				'usedBy_Concept', 
+				'usedBy_broader', 
+				'usedBy_narrower', 
+				'usedBy_related', 
+				'usedBy_broadMatch', 
+				'usedBy_narrowMatch', 
+				'usedBy_relatedMatch', 
+				'usedBy_exactMatch', 
+				'usedBy_closeMatch', 
+				'usedBy_notation', 
+				'usedBy_inScheme');
+var sourceBoxes= new Array('source_prefLabel', 
+				'source_altLabel', 
+				'source_note', 
+				'source_Concept', 
+				'source_broader', 
+				'source_narrower', 
+				'source_related', 
+				'source_broadMatch', 
+				'source_narrowMatch', 
+				'source_relatedMatch', 
+				'source_exactMatch', 
+				'source_closeMatch', 
+				'source_notation', 
+				'source_inScheme');
+var instanceBoxes= new Array('instance_Concept');
+var diagramBoxes= new Array('diagram_prefLabel', 
+				'diagram_altLabel', 
+				'diagram_note', 
+				'diagram_Concept', 
+				'diagram_broader', 
+				'diagram_narrower', 
+				'diagram_related', 
+				'diagram_broadMatch', 
+				'diagram_narrowMatch', 
+				'diagram_relatedMatch', 
+				'diagram_exactMatch', 
+				'diagram_closeMatch', 
+				'diagram_notation', 
+				'diagram_inScheme');
+var annotationBoxes= new Array('annotations_SKOS.xsd');
+var attributesBoxes= new Array('attributes_prefLabel', 
+				'attributes_altLabel', 
+				'attributes_note', 
+				'attributes_Concept', 
+				'attributes_broader', 
+				'attributes_narrower', 
+				'attributes_related', 
+				'attributes_broadMatch', 
+				'attributes_narrowMatch', 
+				'attributes_relatedMatch', 
+				'attributes_exactMatch', 
+				'attributes_closeMatch', 
+				'attributes_notation', 
+				'attributes_inScheme');
+var modelBoxes= new Array('model_Concept');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                    //--></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cornerTopLeft"></td>
+               <td class="rt_lineTop"></td>
+               <td class="rt_cornerTopRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_lineLeft"></td>
+               <td class="rt_content">
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, annotationBoxes);" class="control" /></span><span class="globalControlName">Annotations</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, attributesBoxes);" class="control" /></span><span class="globalControlName">Attributes </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, diagramBoxes);" class="control" /></span><span class="globalControlName">Diagrams</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, instanceBoxes);" class="control" /></span><span class="globalControlName">Instances</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, modelBoxes);" class="control" /></span><span class="globalControlName">Model </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, propertiesBoxes);" class="control" /></span><span class="globalControlName">Properties </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control" /></span><span class="globalControlName">Source</span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close" /></span></div>
+               </td>
+               <td class="rt_lineRight"></td>
+            </tr>
+            <tr>
+               <td class="rt_cornerBottomLeft"></td>
+               <td class="rt_lineBottom"></td>
+               <td class="rt_cornerBottomRight"></td>
+            </tr>
+         </table>
+      </div><a id="SKOS.xsd"></a><div class="componentTitle">Imported schema <span class="qname">SKOS.xsd</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_SKOS.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_SKOS.xsd');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="annotations_SKOS.xsd" style="display:block">
+                              <div class="annotation">
+                                 <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                    <tr>
+                                       <td width="100%"><pre><span class="tT">EDM First Implementation Schema: SKOS</span></pre></td>
+                                    </tr>
+                                 </table>
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_SKOS.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_SKOS.xsd');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_SKOS.xsd" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">attribute form default</td>
+                                    <td><b>qualified</b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">element form default</td>
+                                    <td><b>qualified</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="prefLabel"></a><div class="componentTitle">Element <span class="qname">skos:prefLabel</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_prefLabel" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_prefLabel');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_prefLabel" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_prefLabel.jpeg" usemap="#SKOS_xsd_Element_skos_prefLabel" /><map name="SKOS_xsd_Element_skos_prefLabel" id="SKOS_xsd_Element_skos_prefLabel">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="140,157,239,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#LiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#LiteralType" coords="115,3,248,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#LiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:LiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_prefLabel" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_prefLabel');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_prefLabel" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_prefLabel" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_prefLabel');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_prefLabel" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Elements </td>
+                                    <td><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">Complex Types </td>
+                                    <td><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b>, <b><a href="edm_.html#PlaceType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:PlaceType</a></b>, <b><a href="edm_.html#TimeSpanType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:TimeSpanType</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_prefLabel" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_prefLabel');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_prefLabel" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_prefLabel" type="image" src="img/btM.gif" value="-" onclick="switchState('source_prefLabel');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_prefLabel" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"prefLabel"</span><span class="tAN"> type=</span><span class="tAV">"rdf:LiteralType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="altLabel"></a><div class="componentTitle">Element <span class="qname">skos:altLabel</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_altLabel" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_altLabel');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_altLabel" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_altLabel.jpeg" usemap="#SKOS_xsd_Element_skos_altLabel" /><map name="SKOS_xsd_Element_skos_altLabel" id="SKOS_xsd_Element_skos_altLabel">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="131,157,230,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#LiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#LiteralType" coords="106,3,239,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#LiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:LiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_altLabel" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_altLabel');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_altLabel" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_altLabel" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_altLabel');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_altLabel" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Elements </td>
+                                    <td><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">Complex Types </td>
+                                    <td><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b>, <b><a href="edm_.html#PlaceType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:PlaceType</a></b>, <b><a href="edm_.html#TimeSpanType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:TimeSpanType</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_altLabel" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_altLabel');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_altLabel" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_altLabel" type="image" src="img/btM.gif" value="-" onclick="switchState('source_altLabel');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_altLabel" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"altLabel"</span><span class="tAN"> type=</span><span class="tAV">"rdf:LiteralType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="note"></a><div class="componentTitle">Element <span class="qname">skos:note</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_note" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_note');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_note" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_note.jpeg" usemap="#SKOS_xsd_Element_skos_note" /><map name="SKOS_xsd_Element_skos_note" id="SKOS_xsd_Element_skos_note">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="112,157,211,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#LiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#LiteralType" coords="87,3,220,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#LiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:LiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_note" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_note');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_note" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_note" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_note');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_note" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Elements </td>
+                                    <td><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                                 <tr>
+                                    <td class="firstColumn">Complex Types </td>
+                                    <td><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b>, <b><a href="edm_.html#PlaceType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:PlaceType</a></b>, <b><a href="edm_.html#TimeSpanType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:TimeSpanType</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_note" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_note');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_note" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_note" type="image" src="img/btM.gif" value="-" onclick="switchState('source_note');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_note" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"note"</span><span class="tAN"> type=</span><span class="tAV">"rdf:LiteralType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="Concept"></a><div class="componentTitle">Element <span class="qname">skos:Concept</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_Concept" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_Concept');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_Concept" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_Concept.jpeg" usemap="#SKOS_xsd_Element_skos_Concept" /><map name="SKOS_xsd_Element_skos_Concept" id="SKOS_xsd_Element_skos_Concept">
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#about" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#about" coords="155,80,258,104" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#AboutType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#AboutType" coords="130,5,359,27" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#prefLabel" href="http___www_w3_org_2004_02_skos_core#.html#prefLabel" coords="269,128,384,152" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#altLabel" href="http___www_w3_org_2004_02_skos_core#.html#altLabel" coords="269,162,375,186" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#broader" href="http___www_w3_org_2004_02_skos_core#.html#broader" coords="269,196,376,220" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#narrower" href="http___www_w3_org_2004_02_skos_core#.html#narrower" coords="269,230,383,254" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#related" href="http___www_w3_org_2004_02_skos_core#.html#related" coords="269,264,371,288" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#broadMatch" href="http___www_w3_org_2004_02_skos_core#.html#broadMatch" coords="269,298,397,322" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#narrowMatch" href="http___www_w3_org_2004_02_skos_core#.html#narrowMatch" coords="269,332,404,356" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#relatedMatch" href="http___www_w3_org_2004_02_skos_core#.html#relatedMatch" coords="269,366,404,390" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#exactMatch" href="http___www_w3_org_2004_02_skos_core#.html#exactMatch" coords="269,400,394,424" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#closeMatch" href="http___www_w3_org_2004_02_skos_core#.html#closeMatch" coords="269,434,394,458" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#note" href="http___www_w3_org_2004_02_skos_core#.html#note" coords="269,468,356,492" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#notation" href="http___www_w3_org_2004_02_skos_core#.html#notation" coords="269,502,377,526" />
+                                 <area alt="http___www_w3_org_2004_02_skos_core#.tmp#inScheme" href="http___www_w3_org_2004_02_skos_core#.html#inScheme" coords="269,536,387,560" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td>extension of <b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#AboutType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:AboutType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type hierarchy</b></td>
+                        <td>
+                           <ul class="internal">
+                              <li class="internal"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#AboutType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:AboutType</a></b></li>
+                           </ul>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Concept" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Concept');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_Concept" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Concept" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Concept');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_Concept" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Complex Type </td>
+                                    <td><b><a href="edm_.html#http___www.europeana.eu_schemas_edm__RDF" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:RDF</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Model</b><div class="floatRight"><input id="button_model_Concept" type="image" src="img/btM.gif" value="-" onclick="switchState('model_Concept');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="model_Concept" style="display:block">(<b><a href="http___www_w3_org_2004_02_skos_core_.html#prefLabel" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:prefLabel</a></b> | <b><a href="http___www_w3_org_2004_02_skos_core_.html#altLabel" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:altLabel</a></b> | <b><a href="http___www_w3_org_2004_02_skos_core_.html#broader" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:broader</a></b> | <b><a href="http___www_w3_org_2004_02_skos_core_.html#narrower" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:narrower</a></b> | <b><a href="http___www_w3_org_2004_02_skos_core_.html#related" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:related</a></b> | <b><a href="http___www_w3_org_2004_02_skos_core_.html#broadMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:broadMatch</a></b> | <b><a href="http___www_w3_org_2004_02_skos_core_.html#narrowMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:narrowMatch</a></b> | <b><a href="http___www_w3_org_2004_02_skos_core_.html#relatedMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:relatedMatch</a></b> | <b><a href="http___www_w3_org_2004_02_skos_core_.html#exactMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:exactMatch</a></b> | <b><a href="http___www_w3_org_2004_02_skos_core_.html#closeMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:closeMatch</a></b> | <b><a href="http___www_w3_org_2004_02_skos_core_.html#note" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:note</a></b> | <b><a href="http___www_w3_org_2004_02_skos_core_.html#notation" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:notation</a></b> | <b><a href="http___www_w3_org_2004_02_skos_core_.html#inScheme" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:inScheme</a></b>)
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Children</b></td>
+                        <td><b><a href="http___www_w3_org_2004_02_skos_core_.html#altLabel" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:altLabel</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#broadMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:broadMatch</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#broader" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:broader</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#closeMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:closeMatch</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#exactMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:exactMatch</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#inScheme" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:inScheme</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#narrowMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:narrowMatch</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#narrower" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:narrower</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#notation" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:notation</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#note" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:note</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#prefLabel" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:prefLabel</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#related" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:related</a></b>, <b><a href="http___www_w3_org_2004_02_skos_core_.html#relatedMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:relatedMatch</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_Concept" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_Concept');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="instance_Concept" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;skos:Concept</span><span class="tT"> </span><span class="tAN">rdf:about=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xmlns:skos=</span><span class="tAV">"http://www.w3.org/2004/02/skos/core#"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:prefLabel</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:prefLabel&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:altLabel</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:altLabel&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:broader</span><span class="tT"> </span><span class="tAN">rdf:resource=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:broader&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:narrower</span><span class="tT"> </span><span class="tAN">rdf:resource=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:narrower&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:related</span><span class="tT"> </span><span class="tAN">rdf:resource=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:related&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:broadMatch</span><span class="tT"> </span><span class="tAN">rdf:resource=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:broadMatch&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:narrowMatch</span><span class="tT"> </span><span class="tAN">rdf:resource=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:narrowMatch&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:relatedMatch</span><span class="tT"> </span><span class="tAN">rdf:resource=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:relatedMatch&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:exactMatch</span><span class="tT"> </span><span class="tAN">rdf:resource=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:exactMatch&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:closeMatch</span><span class="tT"> </span><span class="tAN">rdf:resource=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:closeMatch&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:note</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:note&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:notation</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:notation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;skos:inScheme</span><span class="tT"> </span><span class="tAN">rdf:resource=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/skos:inScheme&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/skos:Concept&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_Concept" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_Concept');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_Concept" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#about" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:about</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Concept" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Concept');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_Concept" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"Concept"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;complexContent</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;extension</span><span class="tAN"> base=</span><span class="tAV">"rdf:AboutType"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;sequence</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;choice</span><span class="tEl">&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:prefLabel"</span><span class="tEl">/&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:altLabel"</span><span class="tEl">/&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:broader"</span><span class="tEl">/&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:narrower"</span><span class="tEl">/&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:related"</span><span class="tEl">/&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:broadMatch"</span><span class="tEl">/&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:narrowMatch"</span><span class="tEl">/&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:relatedMatch"</span><span class="tEl">/&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:exactMatch"</span><span class="tEl">/&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:closeMatch"</span><span class="tEl">/&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:note"</span><span class="tEl">/&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:notation"</span><span class="tEl">/&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;element</span><span class="tAN"> ref=</span><span class="tAV">"skos:inScheme"</span><span class="tEl">/&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;/choice&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;/sequence&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/extension&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/complexContent&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/element&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="broader"></a><div class="componentTitle">Element <span class="qname">skos:broader</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_broader" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_broader');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_broader" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_broader.jpeg" usemap="#SKOS_xsd_Element_skos_broader" /><map name="SKOS_xsd_Element_skos_broader" id="SKOS_xsd_Element_skos_broader">
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#resource" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#resource" coords="132,78,254,102" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#ResourceType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#ResourceType" coords="107,3,258,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_broader" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_broader');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_broader" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_broader" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_broader');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_broader" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_broader" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_broader');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_broader" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:resource</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_broader" type="image" src="img/btM.gif" value="-" onclick="switchState('source_broader');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_broader" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"broader"</span><span class="tAN"> type=</span><span class="tAV">"rdf:ResourceType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="narrower"></a><div class="componentTitle">Element <span class="qname">skos:narrower</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_narrower" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_narrower');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_narrower" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_narrower.jpeg" usemap="#SKOS_xsd_Element_skos_narrower" /><map name="SKOS_xsd_Element_skos_narrower" id="SKOS_xsd_Element_skos_narrower">
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#resource" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#resource" coords="139,78,261,102" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#ResourceType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#ResourceType" coords="114,3,265,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_narrower" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_narrower');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_narrower" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_narrower" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_narrower');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_narrower" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_narrower" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_narrower');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_narrower" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:resource</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_narrower" type="image" src="img/btM.gif" value="-" onclick="switchState('source_narrower');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_narrower" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"narrower"</span><span class="tAN"> type=</span><span class="tAV">"rdf:ResourceType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="related"></a><div class="componentTitle">Element <span class="qname">skos:related</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_related" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_related');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_related" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_related.jpeg" usemap="#SKOS_xsd_Element_skos_related" /><map name="SKOS_xsd_Element_skos_related" id="SKOS_xsd_Element_skos_related">
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#resource" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#resource" coords="127,78,249,102" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#ResourceType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#ResourceType" coords="102,3,253,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_related" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_related');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_related" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_related" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_related');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_related" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_related" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_related');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_related" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:resource</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_related" type="image" src="img/btM.gif" value="-" onclick="switchState('source_related');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_related" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"related"</span><span class="tAN"> type=</span><span class="tAV">"rdf:ResourceType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="broadMatch"></a><div class="componentTitle">Element <span class="qname">skos:broadMatch</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_broadMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_broadMatch');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_broadMatch" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_broadMatch.jpeg" usemap="#SKOS_xsd_Element_skos_broadMatch" /><map name="SKOS_xsd_Element_skos_broadMatch" id="SKOS_xsd_Element_skos_broadMatch">
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#resource" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#resource" coords="153,78,275,102" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#ResourceType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#ResourceType" coords="128,3,279,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_broadMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_broadMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_broadMatch" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_broadMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_broadMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_broadMatch" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_broadMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_broadMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_broadMatch" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:resource</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_broadMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('source_broadMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_broadMatch" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"broadMatch"</span><span class="tAN"> type=</span><span class="tAV">"rdf:ResourceType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="narrowMatch"></a><div class="componentTitle">Element <span class="qname">skos:narrowMatch</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_narrowMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_narrowMatch');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_narrowMatch" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_narrowMatch.jpeg" usemap="#SKOS_xsd_Element_skos_narrowMatch" /><map name="SKOS_xsd_Element_skos_narrowMatch" id="SKOS_xsd_Element_skos_narrowMatch">
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#resource" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#resource" coords="160,78,282,102" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#ResourceType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#ResourceType" coords="135,3,286,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_narrowMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_narrowMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_narrowMatch" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_narrowMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_narrowMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_narrowMatch" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_narrowMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_narrowMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_narrowMatch" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:resource</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_narrowMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('source_narrowMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_narrowMatch" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"narrowMatch"</span><span class="tAN"> type=</span><span class="tAV">"rdf:ResourceType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="relatedMatch"></a><div class="componentTitle">Element <span class="qname">skos:relatedMatch</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_relatedMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_relatedMatch');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_relatedMatch" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_relatedMatch.jpeg" usemap="#SKOS_xsd_Element_skos_relatedMatch" /><map name="SKOS_xsd_Element_skos_relatedMatch" id="SKOS_xsd_Element_skos_relatedMatch">
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#resource" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#resource" coords="160,78,282,102" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#ResourceType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#ResourceType" coords="135,3,286,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_relatedMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_relatedMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_relatedMatch" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_relatedMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_relatedMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_relatedMatch" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_relatedMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_relatedMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_relatedMatch" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:resource</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_relatedMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('source_relatedMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_relatedMatch" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"relatedMatch"</span><span class="tAN"> type=</span><span class="tAV">"rdf:ResourceType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="exactMatch"></a><div class="componentTitle">Element <span class="qname">skos:exactMatch</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_exactMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_exactMatch');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_exactMatch" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_exactMatch.jpeg" usemap="#SKOS_xsd_Element_skos_exactMatch" /><map name="SKOS_xsd_Element_skos_exactMatch" id="SKOS_xsd_Element_skos_exactMatch">
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#resource" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#resource" coords="150,78,272,102" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#ResourceType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#ResourceType" coords="125,3,276,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_exactMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_exactMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_exactMatch" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_exactMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_exactMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_exactMatch" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_exactMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_exactMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_exactMatch" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:resource</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_exactMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('source_exactMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_exactMatch" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"exactMatch"</span><span class="tAN"> type=</span><span class="tAV">"rdf:ResourceType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="closeMatch"></a><div class="componentTitle">Element <span class="qname">skos:closeMatch</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_closeMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_closeMatch');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_closeMatch" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_closeMatch.jpeg" usemap="#SKOS_xsd_Element_skos_closeMatch" /><map name="SKOS_xsd_Element_skos_closeMatch" id="SKOS_xsd_Element_skos_closeMatch">
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#resource" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#resource" coords="150,78,272,102" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#ResourceType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#ResourceType" coords="125,3,276,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_closeMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_closeMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_closeMatch" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_closeMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_closeMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_closeMatch" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_closeMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_closeMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_closeMatch" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:resource</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_closeMatch" type="image" src="img/btM.gif" value="-" onclick="switchState('source_closeMatch');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_closeMatch" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"closeMatch"</span><span class="tAN"> type=</span><span class="tAV">"rdf:ResourceType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="notation"></a><div class="componentTitle">Element <span class="qname">skos:notation</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_notation" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_notation');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_notation" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_notation.jpeg" usemap="#SKOS_xsd_Element_skos_notation" /><map name="SKOS_xsd_Element_skos_notation" id="SKOS_xsd_Element_skos_notation">
+                                 <area alt="namespace.tmp#lang" href="namespace.html#lang" coords="133,157,232,181" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#LiteralType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#LiteralType" coords="108,3,241,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#LiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:LiteralType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_notation" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_notation');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_notation" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_notation" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_notation');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_notation" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_notation" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_notation');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_notation" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th>Annotation</th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:lang</a></b></td>
+                                    <td>union of(<b>xs:language</b>, restriction of <b>xs:string</b>)
+                                    </td>
+                                    <td>optional</td>
+                                    <td>
+                                       <div class="annotation">
+                                          <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                             <tr>
+                                                <td width="100%"><pre><span class="tT">Attempting to install the relevant ISO 2- and 3-letter</span><span class="tI">
+</span><span class="tT">         codes as the enumerated possible values is probably never</span><span class="tI">
+</span><span class="tT">         going to be a realistic possibility.  See</span><span class="tI">
+</span><span class="tT">         RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry</span><span class="tI">
+</span><span class="tT">         at http://www.iana.org/assignments/lang-tag-apps.htm for</span><span class="tI">
+</span><span class="tT">         further information.</span><span class="tI">
+</span><span class="tT"></span><span class="tI">
+</span><span class="tT">         The union allows for the 'un-declaration' of xml:lang with</span><span class="tI">
+</span><span class="tT">         the empty string.</span></pre></td>
+                                             </tr>
+                                          </table>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_notation" type="image" src="img/btM.gif" value="-" onclick="switchState('source_notation');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_notation" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"notation"</span><span class="tAN"> type=</span><span class="tAV">"rdf:LiteralType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table><a id="inScheme"></a><div class="componentTitle">Element <span class="qname">skos:inScheme</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cornerTopLeft"></td>
+            <td class="rt_lineTop"></td>
+            <td class="rt_cornerTopRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_lineLeft"></td>
+            <td class="rt_content">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="firstColumn"><b>Namespace</b></td>
+                        <td>http://www.w3.org/2004/02/skos/core#</td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_inScheme" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_inScheme');" class="control" /></div>
+                        </td>
+                        <td class="diagram">
+                           <div id="diagram_inScheme" style="display:block"><img alt="Diagram" border="0" src="img/SKOS_xsd_Element_skos_inScheme.jpeg" usemap="#SKOS_xsd_Element_skos_inScheme" /><map name="SKOS_xsd_Element_skos_inScheme" id="SKOS_xsd_Element_skos_inScheme">
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#resource" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#resource" coords="143,78,265,102" />
+                                 <area alt="http___www_w3_org_1999_02_22-rdf-syntax-ns#.tmp#ResourceType" href="http___www_w3_org_1999_02_22-rdf-syntax-ns#.html#ResourceType" coords="118,3,269,25" /></map></div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn"><b>Type</b></td>
+                        <td><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceType</a></b></td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_inScheme" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_inScheme');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="properties_inScheme" style="display:block">
+                              <table class="propertiesTable">
+                                 <tr>
+                                    <td class="firstColumn" style="white-space: nowrap;">content</td>
+                                    <td><b>complex</b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_inScheme" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_inScheme');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="usedBy_inScheme" style="display:block">
+                              <table class="usedByTable">
+                                 <tr>
+                                    <td class="firstColumn">Element </td>
+                                    <td><b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_inScheme" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_inScheme');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="attributes_inScheme" style="display:block">
+                              <table class="attributesTable">
+                                 <thead>
+                                    <tr>
+                                       <th>QName</th>
+                                       <th width="10%">Type</th>
+                                       <th width="5%">Use</th>
+                                       <th></th>
+                                    </tr>
+                                 </thead>
+                                 <tr>
+                                    <td class="firstColumn"><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:resource</a></b></td>
+                                    <td><b>anyURI</b></td>
+                                    <td>required</td>
+                                    <td>
+                                       <div class="annotation"></div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="firstColumn">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_inScheme" type="image" src="img/btM.gif" value="-" onclick="switchState('source_inScheme');" class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="source_inScheme" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tEl">&lt;element</span><span class="tAN"> name=</span><span class="tAV">"inScheme"</span><span class="tAN"> type=</span><span class="tAV">"rdf:ResourceType"</span><span class="tEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lineRight"></td>
+         </tr>
+         <tr>
+            <td class="rt_cornerBottomLeft"></td>
+            <td class="rt_lineBottom"></td>
+            <td class="rt_cornerBottomRight"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body>
+</html>

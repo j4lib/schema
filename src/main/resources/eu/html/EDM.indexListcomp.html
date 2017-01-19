@@ -1,0 +1,590 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Schema documentation for </title>
+      <link rel="stylesheet" href="docHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                        //--></script></head>
+   <body>
+      <h2><a id="INDEX">Table of Contents</a></h2>
+      <p><a href="EDM.indexList.html">Components</a><span> | </span><a href="schHierarchy.html">Resource Hierarchy</a></p>
+      <hr />
+      <div class="toc">
+         <form action="none">
+            <div><span> Group by: <select id="selectTOC" onchange="selectTOCGroupBy(this.options[this.selectedIndex].value, true, 'EDM.indexList.html', 'EDM.indexListns.html', 'EDM.indexListcomp.html');">
+                     <option value="toc_group_by_namespace">Namespace</option>
+                     <option value="toc_group_by_location">Location</option>
+                     <option value="toc_group_by_component_type" selected="selected">Component Type</option></select></span></div>
+         </form>
+         <div class="level1" id="toc_group_by_component_type" style="display:block">
+            <div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <table class="componentGroup">
+                              <tbody>
+                                 <tr>
+                                    <td class="componentGroup"><input id="button_Element" type="image" value="-" src="img/btM.gif" onclick="switchState('Element');" class="control" /></td>
+                                    <td class="componentGroup">
+                                       <div class="componentGroupTitle">Elements</div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="componentGroup"></td>
+                                    <td class="componentGroup">
+                                       <div id="Element" class="componentGroup" style="display:block">
+                                          <div><b><a href="ElementsGr2_.html#biographicalInformation" target="mainFrame" title="http://rdvocab.info/ElementsGr2/" onclick="updatePageTitle('Schema documentation for namespace http://rdvocab.info/ElementsGr2/')">biographicalInformation</a></b></div>
+                                          <div><b><a href="ElementsGr2_.html#dateOfBirth" target="mainFrame" title="http://rdvocab.info/ElementsGr2/" onclick="updatePageTitle('Schema documentation for namespace http://rdvocab.info/ElementsGr2/')">dateOfBirth</a></b></div>
+                                          <div><b><a href="ElementsGr2_.html#dateOfDeath" target="mainFrame" title="http://rdvocab.info/ElementsGr2/" onclick="updatePageTitle('Schema documentation for namespace http://rdvocab.info/ElementsGr2/')">dateOfDeath</a></b></div>
+                                          <div><b><a href="ElementsGr2_.html#dateOfEstablishment" target="mainFrame" title="http://rdvocab.info/ElementsGr2/" onclick="updatePageTitle('Schema documentation for namespace http://rdvocab.info/ElementsGr2/')">dateOfEstablishment</a></b></div>
+                                          <div><b><a href="ElementsGr2_.html#dateOfTermination" target="mainFrame" title="http://rdvocab.info/ElementsGr2/" onclick="updatePageTitle('Schema documentation for namespace http://rdvocab.info/ElementsGr2/')">dateOfTermination</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#contributor" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:contributor</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#coverage" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:coverage</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#creator" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:creator</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#date" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:date</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#description" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:description</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#format" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:format</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#identifier" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:identifier</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#language" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:language</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#publisher" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:publisher</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#relation" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:relation</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#rights" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:rights</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#source" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:source</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#subject" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:subject</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#title" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:title</a></b></div>
+                                          <div><b><a href="elements_1_1_.html#type" target="mainFrame" title="http://purl.org/dc/elements/1.1/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/elements/1.1/')">dc:type</a></b></div>
+                                          <div><b><a href="dc_terms_.html#alternative" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:alternative</a></b></div>
+                                          <div><b><a href="dc_terms_.html#conformsTo" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:conformsTo</a></b></div>
+                                          <div><b><a href="dc_terms_.html#created" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:created</a></b></div>
+                                          <div><b><a href="dc_terms_.html#extent" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:extent</a></b></div>
+                                          <div><b><a href="dc_terms_.html#hasFormat" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:hasFormat</a></b></div>
+                                          <div><b><a href="dc_terms_.html#hasPart" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:hasPart</a></b></div>
+                                          <div><b><a href="dc_terms_.html#hasVersion" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:hasVersion</a></b></div>
+                                          <div><b><a href="dc_terms_.html#isFormatOf" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:isFormatOf</a></b></div>
+                                          <div><b><a href="dc_terms_.html#isPartOf" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:isPartOf</a></b></div>
+                                          <div><b><a href="dc_terms_.html#isReferencedBy" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:isReferencedBy</a></b></div>
+                                          <div><b><a href="dc_terms_.html#isReplacedBy" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:isReplacedBy</a></b></div>
+                                          <div><b><a href="dc_terms_.html#isRequiredBy" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:isRequiredBy</a></b></div>
+                                          <div><b><a href="dc_terms_.html#isVersionOf" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:isVersionOf</a></b></div>
+                                          <div><b><a href="dc_terms_.html#issued" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:issued</a></b></div>
+                                          <div><b><a href="dc_terms_.html#medium" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:medium</a></b></div>
+                                          <div><b><a href="dc_terms_.html#provenance" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:provenance</a></b></div>
+                                          <div><b><a href="dc_terms_.html#references" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:references</a></b></div>
+                                          <div><b><a href="dc_terms_.html#replaces" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:replaces</a></b></div>
+                                          <div><b><a href="dc_terms_.html#requires" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:requires</a></b></div>
+                                          <div><b><a href="dc_terms_.html#spatial" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:spatial</a></b></div>
+                                          <div><b><a href="dc_terms_.html#tableOfContents" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:tableOfContents</a></b></div>
+                                          <div><b><a href="dc_terms_.html#temporal" target="mainFrame" title="http://purl.org/dc/terms/" onclick="updatePageTitle('Schema documentation for namespace http://purl.org/dc/terms/')">dcterms:temporal</a></b></div>
+                                          <div><b><a href="edm_.html#acronym" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:acronym</a></b></div>
+                                          <div><b><a href="edm_.html#aggregatedCHO" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:aggregatedCHO</a></b></div>
+                                          <div><b><a href="edm_.html#begin" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:begin</a></b></div>
+                                          <div><b><a href="edm_.html#collectionName" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:collectionName</a></b></div>
+                                          <div><b><a href="edm_.html#country" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:country</a></b></div>
+                                          <div><b><a href="edm_.html#currentLocation" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:currentLocation</a></b></div>
+                                          <div><b><a href="edm_.html#dataProvider" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:dataProvider</a></b></div>
+                                          <div><b><a href="edm_.html#datasetName" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:datasetName</a></b></div>
+                                          <div><b><a href="edm_.html#end" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:end</a></b></div>
+                                          <div><b><a href="edm_.html#geographicLevel" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:geographicLevel</a></b></div>
+                                          <div><b><a href="edm_.html#hasMet" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:hasMet</a></b></div>
+                                          <div><b><a href="edm_.html#hasType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:hasType</a></b></div>
+                                          <div><b><a href="edm_.html#hasView" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:hasView</a></b></div>
+                                          <div><b><a href="edm_.html#incorporates" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:incorporates</a></b></div>
+                                          <div><b><a href="edm_.html#isDerivativeOf" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:isDerivativeOf</a></b></div>
+                                          <div><b><a href="edm_.html#isNextInSequence" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:isNextInSequence</a></b></div>
+                                          <div><b><a href="edm_.html#isRelatedTo" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:isRelatedTo</a></b></div>
+                                          <div><b><a href="edm_.html#isRepresentationOf" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:isRepresentationOf</a></b></div>
+                                          <div><b><a href="edm_.html#isShownAt" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:isShownAt</a></b></div>
+                                          <div><b><a href="edm_.html#isShownBy" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:isShownBy</a></b></div>
+                                          <div><b><a href="edm_.html#isSimilarTo" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:isSimilarTo</a></b></div>
+                                          <div><b><a href="edm_.html#isSuccessorOf" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:isSuccessorOf</a></b></div>
+                                          <div><b><a href="edm_.html#landingPage" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:landingPage</a></b></div>
+                                          <div><b><a href="edm_.html#http___www.europeana.eu_schemas_edm__language" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:language</a></b></div>
+                                          <div><b><a href="edm_.html#object" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:object</a></b></div>
+                                          <div><b><a href="edm_.html#organizationDomain" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:organizationDomain</a></b></div>
+                                          <div><b><a href="edm_.html#organizationScope" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:organizationScope</a></b></div>
+                                          <div><b><a href="edm_.html#organizationSector" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:organizationSector</a></b></div>
+                                          <div><b><a href="edm_.html#preview" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:preview</a></b></div>
+                                          <div><b><a href="edm_.html#provider" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:provider</a></b></div>
+                                          <div><b><a href="edm_.html#realizes" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:realizes</a></b></div>
+                                          <div><b><a href="edm_.html#http___www.europeana.eu_schemas_edm__rights" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:rights</a></b></div>
+                                          <div><b><a href="edm_.html#http___www.europeana.eu_schemas_edm__type" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:type</a></b></div>
+                                          <div><b><a href="edm_.html#year" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:year</a></b></div>
+                                          <div><b><a href="enrichment_.html#agent_label" target="mainFrame" title="http://www.europeana.eu/schemas/edm/enrichment/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/enrichment/')">enrichment:agent_label</a></b></div>
+                                          <div><b><a href="enrichment_.html#agent_term" target="mainFrame" title="http://www.europeana.eu/schemas/edm/enrichment/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/enrichment/')">enrichment:agent_term</a></b></div>
+                                          <div><b><a href="enrichment_.html#concept_label" target="mainFrame" title="http://www.europeana.eu/schemas/edm/enrichment/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/enrichment/')">enrichment:concept_label</a></b></div>
+                                          <div><b><a href="enrichment_.html#concept_term" target="mainFrame" title="http://www.europeana.eu/schemas/edm/enrichment/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/enrichment/')">enrichment:concept_term</a></b></div>
+                                          <div><b><a href="enrichment_.html#period_label" target="mainFrame" title="http://www.europeana.eu/schemas/edm/enrichment/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/enrichment/')">enrichment:period_label</a></b></div>
+                                          <div><b><a href="enrichment_.html#period_term" target="mainFrame" title="http://www.europeana.eu/schemas/edm/enrichment/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/enrichment/')">enrichment:period_term</a></b></div>
+                                          <div><b><a href="enrichment_.html#place_label" target="mainFrame" title="http://www.europeana.eu/schemas/edm/enrichment/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/enrichment/')">enrichment:place_label</a></b></div>
+                                          <div><b><a href="enrichment_.html#place_term" target="mainFrame" title="http://www.europeana.eu/schemas/edm/enrichment/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/enrichment/')">enrichment:place_term</a></b></div>
+                                          <div><b><a href="foaf_0_1_.html#Organization" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:Organization</a></b></div>
+                                          <div><b><a href="foaf_0_1_.html#homepage" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:homepage</a></b></div>
+                                          <div><b><a href="foaf_0_1_.html#name" target="mainFrame" title="http://xmlns.com/foaf/0.1/" onclick="updatePageTitle('Schema documentation for namespace http://xmlns.com/foaf/0.1/')">foaf:name</a></b></div>
+                                          <div><b><a href="ElementsGr2_.html#gender" target="mainFrame" title="http://rdvocab.info/ElementsGr2/" onclick="updatePageTitle('Schema documentation for namespace http://rdvocab.info/ElementsGr2/')">gender</a></b></div>
+                                          <div><b><a href="terms_.html#Aggregation" target="mainFrame" title="http://www.openarchives.org/ore/terms/" onclick="updatePageTitle('Schema documentation for namespace http://www.openarchives.org/ore/terms/')">ore:Aggregation</a></b></div>
+                                          <div><b><a href="terms_.html#aggregates" target="mainFrame" title="http://www.openarchives.org/ore/terms/" onclick="updatePageTitle('Schema documentation for namespace http://www.openarchives.org/ore/terms/')">ore:aggregates</a></b></div>
+                                          <div><b><a href="ElementsGr2_.html#placeOfBirth" target="mainFrame" title="http://rdvocab.info/ElementsGr2/" onclick="updatePageTitle('Schema documentation for namespace http://rdvocab.info/ElementsGr2/')">placeOfBirth</a></b></div>
+                                          <div><b><a href="ElementsGr2_.html#placeOfDeath" target="mainFrame" title="http://rdvocab.info/ElementsGr2/" onclick="updatePageTitle('Schema documentation for namespace http://rdvocab.info/ElementsGr2/')">placeOfDeath</a></b></div>
+                                          <div><b><a href="ElementsGr2_.html#professionOrOccupation" target="mainFrame" title="http://rdvocab.info/ElementsGr2/" onclick="updatePageTitle('Schema documentation for namespace http://rdvocab.info/ElementsGr2/')">professionOrOccupation</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#RDF" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:RDF</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#http___www.w3.org_1999_02_22-rdf-syntax-ns__type" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:type</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2002_07_owl_.html#sameAs" target="mainFrame" title="http://www.w3.org/2002/07/owl_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2002/07/owl#')">sameAs</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#Concept" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:Concept</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#altLabel" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:altLabel</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#broadMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:broadMatch</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#broader" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:broader</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#closeMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:closeMatch</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#exactMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:exactMatch</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#inScheme" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:inScheme</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#narrowMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:narrowMatch</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#narrower" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:narrower</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#notation" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:notation</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#note" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:note</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#prefLabel" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:prefLabel</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#related" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:related</a></b></div>
+                                          <div><b><a href="http___www_w3_org_2004_02_skos_core_.html#relatedMatch" target="mainFrame" title="http://www.w3.org/2004/02/skos/core_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/2004/02/skos/core#')">skos:relatedMatch</a></b></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <table class="componentGroup">
+                              <tbody>
+                                 <tr>
+                                    <td class="componentGroup"><input id="button_Complex_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('Complex_Type');" class="control" /></td>
+                                    <td class="componentGroup">
+                                       <div class="componentGroupTitle">Complex Types</div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="componentGroup"></td>
+                                    <td class="componentGroup">
+                                       <div id="Complex_Type" class="componentGroup" style="display:block">
+                                          <div><b><a href="edm_.html#AgentType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:AgentType</a></b></div>
+                                          <div><b><a href="edm_.html#BaseProvidedCHOType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:BaseProvidedCHOType</a></b></div>
+                                          <div><b><a href="edm_.html#EuropeanaType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:EuropeanaType</a></b></div>
+                                          <div><b><a href="edm_.html#PlaceType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:PlaceType</a></b></div>
+                                          <div><b><a href="edm_.html#ProvidedCHOType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:ProvidedCHOType</a></b></div>
+                                          <div><b><a href="edm_.html#http___www.europeana.eu_schemas_edm__RDF" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:RDF</a></b></div>
+                                          <div><b><a href="edm_.html#TimeSpanType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:TimeSpanType</a></b></div>
+                                          <div><b><a href="edm_.html#WebResourceType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:WebResourceType</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#AboutType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:AboutType</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#DateType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:DateType</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#DoubleType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:DoubleType</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#HexBinaryType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:HexBinaryType</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#IntegerType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:IntegerType</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#LiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:LiteralType</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#LongType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:LongType</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#NonNegativeIntegerType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:NonNegativeIntegerType</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceOrLiteralType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceOrLiteralType</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#ResourceType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:ResourceType</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#StringType" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:StringType</a></b></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <table class="componentGroup">
+                              <tbody>
+                                 <tr>
+                                    <td class="componentGroup"><input id="button_Simple_Type" type="image" value="-" src="img/btM.gif" onclick="switchState('Simple_Type');" class="control" /></td>
+                                    <td class="componentGroup">
+                                       <div class="componentGroupTitle">Simple Types</div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="componentGroup"></td>
+                                    <td class="componentGroup">
+                                       <div id="Simple_Type" class="componentGroup" style="display:block">
+                                          <div><b><a href="edm_.html#CountryCodes" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:CountryCodes</a></b></div>
+                                          <div><b><a href="edm_.html#EdmType" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:EdmType</a></b></div>
+                                          <div><b><a href="edm_.html#LanguageCodes" target="mainFrame" title="http://www.europeana.eu/schemas/edm/" onclick="updatePageTitle('Schema documentation for namespace http://www.europeana.eu/schemas/edm/')">edm:LanguageCodes</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#hexBinaryString" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">rdf:hexBinaryString</a></b></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <table class="componentGroup">
+                              <tbody>
+                                 <tr>
+                                    <td class="componentGroup"><input id="button_Attribute" type="image" value="-" src="img/btM.gif" onclick="switchState('Attribute');" class="control" /></td>
+                                    <td class="componentGroup">
+                                       <div class="componentGroupTitle">Attributes</div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="componentGroup"></td>
+                                    <td class="componentGroup">
+                                       <div id="Attribute" class="componentGroup" style="display:block">
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#about" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">@rdf:about</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#datatype" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">@rdf:datatype</a></b></div>
+                                          <div><b><a href="http___www_w3_org_1999_02_22-rdf-syntax-ns_.html#resource" target="mainFrame" title="http://www.w3.org/1999/02/22-rdf-syntax-ns_" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/1999/02/22-rdf-syntax-ns#')">@rdf:resource</a></b></div>
+                                          <div><b><a href="namespace.html#base" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">@xml:base</a></b></div>
+                                          <div><b><a href="namespace.html#id" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">@xml:id</a></b></div>
+                                          <div><b><a href="namespace.html#lang" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">@xml:lang</a></b></div>
+                                          <div><b><a href="namespace.html#space" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">@xml:space</a></b></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="horizontalLayout">
+                  <table class="rt">
+                     <tr>
+                        <td class="rt_cornerTopLeft"></td>
+                        <td class="rt_lineTop"></td>
+                        <td class="rt_cornerTopRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_lineLeft"></td>
+                        <td class="rt_content">
+                           <table class="componentGroup">
+                              <tbody>
+                                 <tr>
+                                    <td class="componentGroup"><input id="button_Attribute_Group" type="image" value="-" src="img/btM.gif" onclick="switchState('Attribute_Group');" class="control" /></td>
+                                    <td class="componentGroup">
+                                       <div class="componentGroupTitle">Attribute Groups</div>
+                                    </td>
+                                 </tr>
+                                 <tr>
+                                    <td class="componentGroup"></td>
+                                    <td class="componentGroup">
+                                       <div id="Attribute_Group" class="componentGroup" style="display:block">
+                                          <div><b><a href="namespace.html#specialAttrs" target="mainFrame" title="http://www.w3.org/XML/1998/namespace" onclick="updatePageTitle('Schema documentation for namespace http://www.w3.org/XML/1998/namespace')">xml:specialAttrs</a></b></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </td>
+                        <td class="rt_lineRight"></td>
+                     </tr>
+                     <tr>
+                        <td class="rt_cornerBottomLeft"></td>
+                        <td class="rt_lineBottom"></td>
+                        <td class="rt_cornerBottomRight"></td>
+                     </tr>
+                  </table>
+               </div>
+               <div style="clear:left"></div>
+            </div>
+         </div>
+      </div>
+      <div class="footer">
+         <hr />
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div>
+   </body>
+</html>
