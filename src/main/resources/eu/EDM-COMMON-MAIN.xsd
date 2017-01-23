@@ -35,7 +35,7 @@
     <import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="DC.xsd"/>
     <import namespace="http://www.w3.org/2004/02/skos/core#" schemaLocation="SKOS.xsd"/>
     <import namespace="http://purl.org/dc/terms/" schemaLocation="DCTERMS.xsd"/>
-    <import namespace="http://www.w3.org/2003/01/geo/wgs84_pos#" schemaLocation="WGS84.xsd"/>
+    <import namespace="http://www.w3.org/2003/01/geo/wgs84_pos#" schemaLocation="WGS84_POS.xsd"/>
     <import namespace="http://rdvocab.info/ElementsGr2/" schemaLocation="RDAGR2.xsd" />
     <import namespace="http://xmlns.com/foaf/0.1/" schemaLocation="FOAF.xsd" />
     <import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="RDF.xsd"/>
