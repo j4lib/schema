@@ -30,6 +30,9 @@
     xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/"
     xmlns:foaf="http://xmlns.com/foaf/0.1/"
     xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+    xmlns:dm2e="http://onto.dm2e.eu/schemas/dm2e/"
+    xmlns:eclap="http://www.eclap.eu/schema/eclap/"
+    xmlns:gndo="http://d-nb.info/standards/elementset/gnd/"
     elementFormDefault="qualified">
     
     <import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="DC.xsd"/>
@@ -40,7 +43,10 @@
     <import namespace="http://xmlns.com/foaf/0.1/" schemaLocation="FOAF.xsd" />
     <import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="RDF.xsd"/>
     <import namespace="http://www.w3.org/2002/07/owl#" schemaLocation="OWL.xsd"/>
-
+    <import namespace="http://onto.dm2e.eu/schemas/dm2e/" schemaLocation="DM2E.xsd"/>
+    <import namespace="http://www.eclap.eu/schema/eclap/" schemaLocation="ECLAP.xsd"/>
+    <import namespace="http://d-nb.info/standards/elementset/gnd/" schemaLocation="GNDO.xsd"/>
+    
     <annotation>
         <documentation> EDM First Implementation Schema: Main schema in the EDM namespace, to be
             wrapped up in RDF </documentation>
@@ -122,6 +128,54 @@
                         <element ref="dcterms:tableOfContents"/>
                         <element ref="dcterms:temporal"/>
                     </choice>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    
+    <!--  Extensions DM2E, ECLAP and GNDO -->
+    
+    <complexType name="FidExtensionType">
+        <annotation>
+            <documentation>DM2E, ECLAP and GNDO Extension for FID DK</documentation>
+        </annotation>
+        <complexContent>
+            <extension base="edm:EuropeanaType">
+                <sequence minOccurs="0" maxOccurs="unbounded">
+                    <!-- DM2E SPECIFIC ELEMENTS -->
+                    <element ref="dm2e:holdingInstitution"/>                       
+                    <element ref="dm2e:publishedAt"/>
+                    <element ref="dm2e:displayLevel"/>
+                    <element ref="dm2e:shelfmarkLocation"/>
+                    <element ref="dm2e:subtitle"/>                    
+                    <element ref="dm2e:artist"/>
+                    <element ref="dm2e:painter"/>
+                    <!-- ECLAP SPECIFIC ELEMENTS -->
+                    <element ref="eclap:performancePlace"/>
+                    <element ref="eclap:performingArtsGroup"/>
+                    <element ref="eclap:actor"/>
+                    <element ref="eclap:dancer"/>
+                    <element ref="eclap:director"/>
+                    <element ref="eclap:assistantDirector"/>
+                    <element ref="eclap:setDesigner"/> 
+                    <element ref="eclap:scenographer"/> 
+                    <element ref="eclap:choreographer"/> 
+                    <element ref="eclap:costumeDesigner"/> 
+                    <element ref="eclap:lightDesigner"/> 
+                    <element ref="eclap:soundDesigner"/> 
+                    <element ref="eclap:composer"/> 
+                    <element ref="eclap:singer"/> 
+                    <element ref="eclap:musician"/> 
+                    <element ref="eclap:producer"/> 
+                    <element ref="eclap:adaptor"/> 
+                    <element ref="eclap:maskDesigner"/>
+                    <!-- GNDO SPECIFIC ELEMENTS -->
+                    <element ref="gndo:photographer"/>                       
+                    <element ref="gndo:directorOfPhotography"/>
+                    <element ref="gndo:engraver"/>
+                    <element ref="gndo:librettist"/>
+                    <element ref="gndo:manufacturer"/>                    
+                    <element ref="gndo:designer"/>
                 </sequence>
             </extension>
         </complexContent>

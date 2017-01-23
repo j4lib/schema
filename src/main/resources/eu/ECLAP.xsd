@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://www.eclap.eu/schema/eclap/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:eclap="http://www.eclap.eu/schema/eclap/">
+
+  <import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="RDF.xsd"/>
+
+  <element name="performancePlace" type="rdf:ResourceOrLiteralType"/>
+  <element name="performingArtsGroup" type="rdf:ResourceOrLiteralType"/>
+  <element name="actor" type="rdf:ResourceOrLiteralType"/>
+  <element name="dancer" type="rdf:ResourceOrLiteralType"/>
+  <element name="director" type="rdf:ResourceOrLiteralType"/>
+  <element name="assistantDirector" type="rdf:ResourceOrLiteralType"/>
+  <element name="setDesigner" type="rdf:ResourceOrLiteralType"/> 
+  <element name="scenographer" type="rdf:ResourceOrLiteralType"/> 
+  <element name="choreographer" type="rdf:ResourceOrLiteralType"/> 
+  <element name="costumeDesigner" type="rdf:ResourceOrLiteralType"/> 
+  <element name="lightDesigner" type="rdf:ResourceOrLiteralType"/> 
+  <element name="soundDesigner" type="rdf:ResourceOrLiteralType"/> 
+  <element name="composer" type="rdf:ResourceOrLiteralType"/> 
+  <element name="singer" type="rdf:ResourceOrLiteralType"/> 
+  <element name="musician" type="rdf:ResourceOrLiteralType"/> 
+  <element name="producer" type="rdf:ResourceOrLiteralType"/> 
+  <element name="adaptor" type="rdf:ResourceOrLiteralType"/> 
+  <element name="maskDesigner" type="rdf:ResourceOrLiteralType"/> 
+</schema>

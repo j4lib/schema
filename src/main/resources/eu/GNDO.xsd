@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://d-nb.info/standards/elementset/gnd/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:gndo="http://d-nb.info/standards/elementset/gnd/">
+  
+  <import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="RDF.xsd"/>
+  
+  <element name="photographer" type="rdf:ResourceOrLiteralType"/>  
+  <element name="directorOfPhotography" type="rdf:ResourceOrLiteralType"/>  
+  <element name="engraver" type="rdf:ResourceOrLiteralType"/> 
+  <element name="librettist" type="rdf:ResourceOrLiteralType"/>  
+  <element name="manufacturer" type="rdf:ResourceOrLiteralType"/>  
+  <element name="designer" type="rdf:ResourceOrLiteralType"/>
+</schema>
+

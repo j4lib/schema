@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://onto.dm2e.eu/schemas/dm2e/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dm2e="http://onto.dm2e.eu/schemas/dm2e/">
+  
+  <import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="RDF.xsd"/>
+ 
+  <element name="holdingInstitution" type="rdf:ResourceOrLiteralType">    
+  </element>
+  <element name="publishedAt" type="rdf:ResourceOrLiteralType">    
+  </element>
+  <element name="artist" type="rdf:ResourceOrLiteralType">    
+  </element>
+  <element name="painter" type="rdf:ResourceOrLiteralType">    
+  </element>
+  <element name="displayLevel" type="rdf:ResourceOrLiteralType">    
+  </element>
+  <element name="shelfmarkLocation" type="rdf:LiteralType"/>
+  <element name="subtitle" type="rdf:LiteralType"/>
+</schema>

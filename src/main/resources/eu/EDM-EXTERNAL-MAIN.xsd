@@ -20,8 +20,6 @@
 	xmlns:ore="http://www.openarchives.org/ore/terms/" 
 	xmlns:sch="http://purl.oclc.org/dsdl/schematron"
 	xmlns:cc="http://creativecommons.org/ns#"
-		xmlns:svcs="http://rdfs.org/sioc/services#"
-		xmlns:doap="http://usefulinc.com/ns/doap#"
 	elementFormDefault="qualified">
 
 	<import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="RDF.xsd" />
@@ -46,6 +44,8 @@
 				<sch:ns prefix="rdf" uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#" />
 				<sch:ns prefix="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#" />
 				<sch:ns prefix="skos" uri="http://www.w3.org/2004/02/skos/core#" />
+				<sch:ns prefix="dm2e" uri="http://onto.dm2e.eu/schemas/dm2e/" />
+				<sch:ns prefix="eclap" uri="http://www.eclap.eu/schema/eclap/" />				
 			</appinfo>
 		</annotation>
 		<sequence minOccurs="0" maxOccurs="unbounded">
